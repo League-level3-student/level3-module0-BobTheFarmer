@@ -5,7 +5,7 @@ import java.util.Random;
 public class _01_IntroToArrays {
     public static void main(String[] args) {
         // 1. declare and Initialize an array 5 Strings
-
+    		
         // 2. print the third element in the array
 
         // 3. set the third element to a different value
