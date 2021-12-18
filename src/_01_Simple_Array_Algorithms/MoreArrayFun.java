@@ -7,9 +7,11 @@ public class MoreArrayFun {
 		public static void main(String[] args) {
 			String[] testArray = {"Dogs", "Cats", "1", "2", "3"};
 			MoreArrayFun maf = new MoreArrayFun();
+			maf.printStrings(testArray);
+			maf.printStringsEveryOther(testArray);
+			maf.printStringsReverse(testArray);
 			maf.printStringsRandom(testArray);
 		}
-		boolean alwaysTrue = true;
 		Random rando = new Random();
     //2. Write a method that takes an array of Strings and prints all the Strings in the array.
 		void printStrings(String[] array) {
@@ -22,7 +24,7 @@ public class MoreArrayFun {
     //3. Write a method that takes an array of Strings and prints all the Strings in the array
     //   in reverse order.
 		void printStringsReverse(String[] array) {
-			for (int i = array.length; i>0; i--) {
+			for (int i = array.length-1; i>=0; i--) {
 				System.out.println(array[i]);
 			}
 		}
