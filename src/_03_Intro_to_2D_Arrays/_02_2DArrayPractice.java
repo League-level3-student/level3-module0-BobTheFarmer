@@ -197,25 +197,30 @@ public class _02_2DArrayPractice {
      *    boundaries, return null.
      */
     public Integer getEastNeighbor(int[][] matrix, int row, int col) {
-    	if(row > matrix.length || row < 0   ||    col > matrix[row].length || col<0) {
+    	if(row > matrix.length-1 || row < 0   ||    col+1 > matrix[row].length-1 || col+1<0) {
     		return null;
-    		//WORKING ON THIS NOT WORKING
     	}
         return matrix[row] [col+1];
     }
     
     public Integer getWestNeighbor(int[][] matrix, int row, int col) {
-        
-        return null;
+    	if(row > matrix.length-1 || row < 0   ||    col-1 > matrix[row].length-1 || col-1<0) {
+    		return null;
+    	}
+        return matrix[row] [col-1];
     }
     
     public Integer getNorthNeighbor(int[][] matrix, int row, int col) {
-        
-        return null;
+    	if(row-1 > matrix.length-1 || row-1 < 0   ||    col > matrix[row].length-1 || col<0) {
+    		return null;
+    	}
+        return matrix[row-1] [col];
     }
     
     public Integer getSouthNeighbor(int[][] matrix, int row, int col) {
-        
-        return null;
+    	if(row+1 > matrix.length-1 || row+1 < 0   ||    col > matrix[row].length-1 || col<0) {
+    		return null;
+    	}
+        return matrix[row+1] [col];
     }
 }
