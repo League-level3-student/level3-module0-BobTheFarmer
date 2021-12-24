@@ -17,7 +17,7 @@ public class GridPanel extends JPanel{
     private int cols;
 
     // 1. Create a 2D array of pixels. Do not initialize it yet.
-
+    	Pixel[] [] pixels;
     private Color color;
 
     public GridPanel(int w, int h, int r, int c) {
@@ -34,10 +34,14 @@ public class GridPanel extends JPanel{
         setPreferredSize(new Dimension(windowWidth, windowHeight));
 
         // 2. Initialize the pixel array using the rows and cols variables.
-
+        	pixels = new Pixel[rows] [cols];
 
         // 3. Iterate through the array and initialize each element to a new pixel.
-
+        	for (int i = 0; i < pixels.length; i++) {
+				for (int j = 0; j < pixels[i].length; j++) {
+					pixels[i][j] = new Pixel(i, j);
+				}
+			}
 
     }
 
@@ -48,6 +52,13 @@ public class GridPanel extends JPanel{
     public void clickPixel(int mouseX, int mouseY) {
         // 5. Use the mouseX and mouseY variables to change the color
         //    of the pixel that was clicked. *HINT* Use the pixel's dimensions.
+    		int clickedPixelX = mouseX/pixelWidth;
+    		int clickedPixelY = mouseY/pixelHeight;
+    		
+    		pixels[clickedPixelX][clickedPixelY].color = color;
+    		
+    		System.out.println("Clicked Pixel X+Y: " + clickedPixelX + ", " + clickedPixelY);
+    		System.out.println("Mouse X+Y: " + mouseX + ", " + mouseY);
     }
 
     @Override
@@ -55,6 +66,15 @@ public class GridPanel extends JPanel{
         // 4. Iterate through the array.
         //    For every pixel in the list, fill in a rectangle using the pixel's color.
         //    Then, use drawRect to add a grid pattern to your display.
-
+    	for (int i = 0; i < pixels.length; i++) {
+			for (int j = 0; j < pixels[i].length; j++) {
+				g.setColor(pixels[i][j].color);
+				g.fillRect(pixels[i][j].x*pixelWidth, pixels[i][j].y*pixelHeight, pixelWidth, pixelHeight);
+				
+				g.setColor(Color.BLACK);
+				g.drawRect(pixels[i][j].x*pixelWidth, pixels[i][j].y*pixelHeight, pixelWidth, pixelHeight);
+				System.out.println("I:" + i + ", J: " +j);
+			}
+		}
     }
 }
