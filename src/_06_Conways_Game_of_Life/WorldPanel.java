@@ -1,3 +1,19 @@
+
+
+
+
+
+
+
+//WORKING ON DEBUGGING
+//Cells are the entire screen
+//Background is drawing
+//WIDTH + LENGTH are not correct
+
+
+
+
+
 package _06_Conways_Game_of_Life;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,7 +46,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
         // 2. Calculate the cell size.
         	cellSize = h/cpr;
         // 3a. Initialize the cell array to the appropriate size.
-        	cells = new Cell[w][h];
+        	cells = new Cell[w/cellSize][h/cellSize];
         // 3b. Iterate through the array and initialize each cell.
         //    Don't forget to consider the cell's dimensions when 
         //    passing in the location.
@@ -38,12 +54,13 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 				for (int j = 0; j < cells[i].length; j++) {
 					cells[i][j] = new Cell(i*cellSize, j*cellSize, cellSize);
 				}
+				
 			}
     }
 
     public void randomizeCells() {
         // 4. Iterate through each cell and randomly set each
-        //    cell's isAlive memeber to true of false
+        //    cell's isAlive member to true of false
     		for (int i = 0; i < cells.length; i++) {
 				for (int j = 0; j < cells[i].length; j++) {
 					cells[i][j].isAlive = rando.nextBoolean();
@@ -76,9 +93,14 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 
     @Override
     public void paintComponent(Graphics g) {
+    	g.setColor(Color.WHITE);
+    	g.fillRect(0, 0, 500, 500);
+    	System.out.println(cells.length);
         // 6. Iterate through the cells and draw them all
+    	g.setColor(Color.RED);
     	for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
+			
 				g.fillRect(cells[i][j].getX(), cells[i][j].getY(), cellSize, cellSize);
 			}
 		}
@@ -166,7 +188,11 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
         //    location and toggle the 'isAlive' variable for that cell.
     	int cellX = e.getX()/cellSize;
     	int cellY = e.getY()/cellSize;
-    	//WORKING ON THIScells[cellX][cellY].isAlive
+    	if(cells[cellX/cellSize][cellY/cellSize].isAlive==false) {
+    		cells[cellX/cellSize][cellY/cellSize].isAlive=true;
+    	} else if(cells[cellX/cellSize][cellY/cellSize].isAlive==true) {
+    		cells[cellX/cellSize][cellY/cellSize].isAlive=false;
+    	}
     	
         repaint();
     }
