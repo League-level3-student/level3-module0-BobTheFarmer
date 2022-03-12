@@ -48,12 +48,42 @@
 
 package _07_The_Wrong_Way_Cow;
 
+import javax.swing.JOptionPane;
+
 public class TheWrongWayCow {
 
     public static int[] findWrongWayCow(final char[][] field) {
         // Fill in the code to return the [col, row] coordinate position of the
         // head (letter 'c') of the wrong way cow!
         
+    	
+    		
+    	//Find all Ws
+    		for (int i = 0; i < field.length; i++) {
+    			for (int j = 0; j < field[i].length; j++) {
+    				if(field[i][j] == 'w') {
+				
+		//Find adjacent Os and save in booleans (also, do not include ones that are two close for full cow)
+    		boolean oUp = false;
+    		boolean oDown = false;
+    		boolean oLeft = false;
+    		boolean oRight = false;
+    		
+    		if(i!=1 && field[i][j+1]=='o') {
+				oUp = true;
+			}
+    		if(i!=field[i].length-2 && field[i][j-1]=='o') {
+				oDown = true;
+			}
+			if(i!=1 && field[i-1][j]=='o') {
+				oLeft = true;
+			}
+			if(i!=field.length-2 && field[i+1][j]=='o') {
+				oRight = true;
+			}
+			//WORKING ON THIS
+			//Wrong way cow is cow that is diffrent direction; make a tally of directions and keep the first of each; whichever is 1 use direction to get c pos 
+			} } }
         return null;
     }
 }

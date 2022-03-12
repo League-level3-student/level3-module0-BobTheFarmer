@@ -37,11 +37,12 @@ public class Cell implements Drawable{
      */
     
     public void liveOrDie(int numNeighbors) {
+    	//System.out.println("Live or die ran");
     	if(numNeighbors<2) {
-    		isAlive = true;
-    	} else if(numNeighbors==2 || numNeighbors==3) {
-    	
-    	} else if(numNeighbors>3) {
+    		isAlive = false;
+    	} //else if(numNeighbors==2 || numNeighbors==3) {
+    		
+    	 else if(numNeighbors>3) {
     		isAlive = false;
     	} else if(numNeighbors==3) {
     		isAlive = true;
