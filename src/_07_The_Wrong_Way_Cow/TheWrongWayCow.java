@@ -51,39 +51,83 @@ package _07_The_Wrong_Way_Cow;
 import javax.swing.JOptionPane;
 
 public class TheWrongWayCow {
+//WORKING ON DEBUGGING; FIGURE OUT OUT OF BOUNDS ERRORS WHEN RUNNING TEST
+	public static int[] findWrongWayCow(final char[][] field) {
+		// Fill in the code to return the [col, row] coordinate position of the
+		// head (letter 'c') of the wrong way cow!
 
-    public static int[] findWrongWayCow(final char[][] field) {
-        // Fill in the code to return the [col, row] coordinate position of the
-        // head (letter 'c') of the wrong way cow!
-        
-    	
-    		
-    	//Find all Ws
-    		for (int i = 0; i < field.length; i++) {
-    			for (int j = 0; j < field[i].length; j++) {
-    				if(field[i][j] == 'w') {
-				
-		//Find adjacent Os and save in booleans (also, do not include ones that are two close for full cow)
-    		boolean oUp = false;
-    		boolean oDown = false;
-    		boolean oLeft = false;
-    		boolean oRight = false;
-    		
-    		if(i!=1 && field[i][j+1]=='o') {
-				oUp = true;
+		int upTally = 0;
+		int downTally = 0;
+		int leftTally = 0;
+		int rightTally = 0;
+		int wrongWayCowDirectionInt = 0;
+
+		// Stores most recent of each direction
+		int[][] mostRecentPos = new int[2][4];
+
+		// Find all Ws
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				if (field[i][j] == 'w') {
+					//System.out.println("W at: " + j + ", " + i);
+					// Find adjacent OCs and save in tally + get most recent c pos for later
+
+					if (j>1) {
+						if (field[i][j - 1] == 'o') {
+							if (field[i][j - 2] == 'c') {
+							upTally++;
+							mostRecentPos[0][0] = i;
+							mostRecentPos[1][0] = j - 2;
+						} }
+					}
+					if (j<field.length - 3) {
+						if (field[i][j + 1] == 'o') {
+							if (field[i][j + 2] == 'c') {
+							downTally++;
+							mostRecentPos[0][1] = i;
+							mostRecentPos[1][1] = j + 2;
+						} }
+					}
+					if (i>1) {
+						if (field[i - 1][j] == 'o') {
+							if (field[i-2][j] == 'c') {
+							leftTally++;
+							mostRecentPos[0][2] = i - 2;
+							mostRecentPos[1][2] = j;
+						} }
+					}
+					if (i<field[i].length - 3) {
+						if (field[i + 1][j] == 'o') {
+							if (field[i+2][j] == 'c') {
+							rightTally++;
+							mostRecentPos[0][2] = i + 2;
+							mostRecentPos[1][2] = j;
+						} }
+					}
+
+				}
 			}
-    		if(i!=field[i].length-2 && field[i][j-1]=='o') {
-				oDown = true;
-			}
-			if(i!=1 && field[i-1][j]=='o') {
-				oLeft = true;
-			}
-			if(i!=field.length-2 && field[i+1][j]=='o') {
-				oRight = true;
-			}
-			//WORKING ON THIS
-			//Wrong way cow is cow that is diffrent direction; make a tally of directions and keep the first of each; whichever is 1 use direction to get c pos 
-			} } }
-        return null;
-    }
+		}
+
+		// Find wrong way cow by seeing which direction has only 1
+		if (upTally == 1) {
+			wrongWayCowDirectionInt = 0;
+		}
+		if (downTally == 1) {
+			wrongWayCowDirectionInt = 1;
+		}
+		if (leftTally == 1) {
+			wrongWayCowDirectionInt = 2;
+		}
+		if (rightTally == 1) {
+			wrongWayCowDirectionInt = 3;
+		}
+
+		// Return c pos from mostRecentPos
+		int[] returnCords = new int[2];
+		returnCords[0] = mostRecentPos[1][wrongWayCowDirectionInt];
+		returnCords[1] = mostRecentPos[0][wrongWayCowDirectionInt];
+		JOptionPane.showMessageDialog(null, returnCords[0] + ", " + returnCords[1]);
+		return returnCords;
+	}
 }
