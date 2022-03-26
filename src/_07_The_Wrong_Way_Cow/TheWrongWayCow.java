@@ -51,7 +51,7 @@ package _07_The_Wrong_Way_Cow;
 import javax.swing.JOptionPane;
 
 public class TheWrongWayCow {
-//WORKING ON DEBUGGING; FIGURE OUT OUT OF BOUNDS ERRORS WHEN RUNNING TEST
+
 	public static int[] findWrongWayCow(final char[][] field) {
 		// Fill in the code to return the [col, row] coordinate position of the
 		// head (letter 'c') of the wrong way cow!
@@ -71,21 +71,24 @@ public class TheWrongWayCow {
 				if (field[i][j] == 'w') {
 					//System.out.println("W at: " + j + ", " + i);
 					// Find adjacent OCs and save in tally + get most recent c pos for later
-
+					
+					
 					if (j>1) {
 						if (field[i][j - 1] == 'o') {
 							if (field[i][j - 2] == 'c') {
 							upTally++;
 							mostRecentPos[0][0] = i;
 							mostRecentPos[1][0] = j - 2;
+							//System.out.println(j-2 + ", " + i);
 						} }
 					}
-					if (j<field.length - 3) {
+					if (j<field[i].length - 3) {
 						if (field[i][j + 1] == 'o') {
 							if (field[i][j + 2] == 'c') {
 							downTally++;
 							mostRecentPos[0][1] = i;
 							mostRecentPos[1][1] = j + 2;
+							//System.out.println(j+2 + ", " + i);
 						} }
 					}
 					if (i>1) {
@@ -94,14 +97,18 @@ public class TheWrongWayCow {
 							leftTally++;
 							mostRecentPos[0][2] = i - 2;
 							mostRecentPos[1][2] = j;
+							//System.out.println(j + ", " + i);
 						} }
 					}
-					if (i<field[i].length - 3) {
+					if (i<field.length - 3) {
+						//System.out.println("TEST OUT OF BOUNDS: I: " + i + ", j: " + j + ",Length: " + field.length + ", JLength: " + field[i].length);
 						if (field[i + 1][j] == 'o') {
+							
 							if (field[i+2][j] == 'c') {
 							rightTally++;
-							mostRecentPos[0][2] = i + 2;
-							mostRecentPos[1][2] = j;
+							mostRecentPos[0][3] = i + 2;
+							mostRecentPos[1][3] = j;
+							//System.out.println(j + ", " + i+2);
 						} }
 					}
 
@@ -110,24 +117,30 @@ public class TheWrongWayCow {
 		}
 
 		// Find wrong way cow by seeing which direction has only 1
-		if (upTally == 1) {
-			wrongWayCowDirectionInt = 0;
-		}
-		if (downTally == 1) {
-			wrongWayCowDirectionInt = 1;
-		}
 		if (leftTally == 1) {
 			wrongWayCowDirectionInt = 2;
+			//JOptionPane.showMessageDialog(null, "left");
 		}
 		if (rightTally == 1) {
 			wrongWayCowDirectionInt = 3;
+			//JOptionPane.showMessageDialog(null, "right");
 		}
+		if (upTally == 1) {
+			wrongWayCowDirectionInt = 0;
+			//JOptionPane.showMessageDialog(null, "up");
+		}
+		if (downTally == 1) {
+			wrongWayCowDirectionInt = 1;
+			//JOptionPane.showMessageDialog(null, "down");
+		}
+	
+		
 
 		// Return c pos from mostRecentPos
 		int[] returnCords = new int[2];
 		returnCords[0] = mostRecentPos[1][wrongWayCowDirectionInt];
 		returnCords[1] = mostRecentPos[0][wrongWayCowDirectionInt];
-		JOptionPane.showMessageDialog(null, returnCords[0] + ", " + returnCords[1]);
+		//JOptionPane.showMessageDialog(null, returnCords[0] + ", " + returnCords[1]);
 		return returnCords;
 	}
 }
